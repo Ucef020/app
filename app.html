@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!-- Meta viewport améliorée -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!-- Configuration PWA -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a5276">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>Application Ouverture des Plis - Marchés Publics Maroc</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Icônes PWA -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+
+    <style>
+:root {
+    --primary: #1a5276;
+    --primary-light: #2874a6;
+    --secondary: #f39c12;
+    --secondary-light: #f8c471;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --gray: #6c757d;
+    --viewport-height: 100vh;
+}
+
+/* Optimisations de base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    min-height: var(--viewport-height);
+}
+
+/* Container principal responsive */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* En-tête responsive */
+header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.logo img {
+    height: 80px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+header h1 {
+    margin: 10px 0;
+    font-size: 1.8rem;
+    color: white;
+}
+
+header p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Cartes responsive */
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Formulaires optimisés pour mobile */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    min-height: 44px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+/* Boutons optimisés pour mobile */
+button, .btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    touch-action: manipulation;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, var(--primary), var(--primary-light));
+    color: white;
+}
+
+/* Tableaux responsive */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+/* Styles des cartes de type */
+.type-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.type-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    border: 2px solid #eee;
+}
+
+/* Pied de page */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 14px;
+    background-color: white;
+    border-top: 1px solid #eee;
+}
+
+/* Media Queries pour différentes tailles d'écran */
+
+/* Petits écrans (< 400px) */
+@media (max-width: 400px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Tablettes et grands téléphones (≥ 768px) */
+@media (min-width: 768px) {
+    .header-content {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .logo img {
+        height: 100px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+        margin: 0;
+    }
+    
+    .type-selector {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .type-card {
+        flex: 1;
+        min-width: calc(50% - 10px);
+    }
+}
+
+/* Grands écrans (≥ 1200px) */
+@media (min-width: 1200px) {
+    .container {
+        padding: 30px;
+    }
+    
+    .type-card {
+        min-width: calc(33.333% - 10px);
+    }
+}
+
+/* Orientation paysage */
+@media (orientation: landscape) {
+    .card {
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Réduction des animations si nécessaire */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Styles d'impression */
+@media print {
+    header, footer, .no-print {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+    }
+}
+
+/* Classes pour les offres */
+tr.offre-basse {
+    background-color: #fff3cd !important;
+}
+
+tr.offre-excessive {
+    background-color: #f8d7da !important;
+}
+
+tr.offre-valable {
+    background-color: #e8f7ee !important;
+}
+
+tr.offre-variante {
+    background-color: #e7f6f8 !important;
+}
+
+/* Alertes */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    border-left: 5px solid;
+}
+
+.alert-info {
+    background-color: #e7f6f8;
+    color: #0c5460;
+    border-left-color: var(--info);
+}
+
+.alert-success {
+    background-color: #e8f7ee;
+    color: #155724;
+    border-left-color: var(--success);
+}
+
+.alert-warning {
+    background-color: #fff8e6;
+    color: #856404;
+    border-left-color: var(--warning);
+}
+
+.alert-danger {
+    background-color: #fcebec;
+    color: #721c24;
+    border-left-color: var(--danger);
+}
+
+.hidden {
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg" alt="Drapeau Maroc">
+            </div>
+            <h1><i class="fas fa-file-contract"></i> Application d'Ouverture des Plis</h1>
+            <p>Conforme au Décret n° 2-22-431 du 8 mars 2023 relatif aux marchés publics marocains</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-info-circle"></i> Informations de base</h2>
+            
+            <div class="form-group">
+                <label for="objet">Objet de l'appel d'offres</label>
+                <input type="text" id="objet" placeholder="Description détaillée de l'objet du marché">
+            </div>
+            
+            <div class="form-group">
+                <label for="reference">Référence de l'appel d'offres</label>
+                <input type="text" id="reference" placeholder="Numéro ou code de référence">
+            </div>
+            
+            <div class="form-group">
+                <label for="date-ouverture">Date d'ouverture des plis</label>
+                <input type="date" id="date-ouverture">
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-tasks"></i> Type de marché</h2>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <p>Sélectionnez le type de prestation concerné par cet appel d'offres. Cette information est essentielle pour une analyse précise des offres conformément au décret marocain.</p>
+                </div>
+            </div>
+            
+            <div class="type-selector">
+                <div class="type-card" id="type-travaux">
+                    <i class="fas fa-hard-hat"></i>
+                    <h3>Travaux</h3>
+                    <p>Construction, réhabilitation, entretien d'ouvrages</p>
+                </div>
+                
+                <div class="type-card" id="type-fournitures">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Fournitures</h3>
+                    <p>Achat ou location de produits, matériels, équipements</p>
+                </div>
+                
+                <div class="type-card" id="type-services">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Services</h3>
+                    <p>Prestations intellectuelles, études, maintenance</p>
+                </div>
+            </div>
+            
+            <input type="hidden" id="type-marche" value="">
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-clipboard-list"></i> Procédure de passation</h2>
+            
+            <div class="procedure-selector">
+                <div class="procedure-card" id="procedure-ouverte">
+                    <i class="fas fa-door-open"></i>
+                    <h3>Appel d'offres ouvert</h3>
+                </div>
+                
+                <div class="procedure-card" id="procedure-restreint">
+                    <i class="fas fa-user-lock"></i>
+                    <h3>Appel d'offres restreint</h3>
+                </div>
+                
+                <div class="procedure-card" id="procedure-preselection">
+                    <i class="fas fa-filter"></i>
+                    <h3>Appel d'offres avec présélection</h3>
+                </div>
+                
+                <div class="procedure-card" id="procedure-negociee">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Procédure négociée</h3>
+                </div>
+            </div>
+            
+            <input type="hidden" id="procedure" value="">
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-calculator"></i> Estimation et analyse</h2>
+            
+            <div class="form-group">
+                <label for="estimation">Estimation du coût des prestations (DH)</label>
+                <input type="number" id="estimation" min="0" step="0.01" placeholder="Montant estimé par le maître d'ouvrage">
+            </div>
+            
+            <div class="form-group">
+                <label for="seuil">Seuil de l'appel d'offres (DH) <i class="fas fa-question-circle tooltip"><span class="tooltiptext">Seuils définis par la réglementation marocaine</span></i></label>
+                <input type="number" id="seuil" min="0" step="0.01" placeholder="Seuil applicable selon le type de marché">
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-users"></i> Saisie des concurrents</h2>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <p>Veuillez saisir les informations de chaque concurrent participant à l'appel d'offres. Les offres seront analysées selon les règles du décret marocain.</p>
+                </div>
+            </div>
+            
+            <div class="concurrent-form">
+                <div class="form-group">
+                    <label for="nom-concurrent">Nom du concurrent</label>
+                    <input type="text" id="nom-concurrent" placeholder="Raison sociale ou nom du soumissionnaire">
+                </div>
+                
+                <div class="form-group">
+                    <label for="montant-offre">Montant de l'offre (DH)</label>
+                    <input type="number" id="montant-offre" min="0" step="0.01" placeholder="Montant HT ou TTC selon le cas">
+                </div>
+                
+                <div class="form-group">
+                    <label for="variante">Variante <i class="fas fa-question-circle tooltip"><span class="tooltiptext">Indiquez si cette offre est une variante par rapport à la solution de base</span></i></label>
+                    <select id="variante">
+                        <option value="non">Non</option>
+                        <option value="oui">Oui</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <button id="ajouter-concurrent" class="btn-primary"><i class="fas fa-plus"></i> Ajouter</button>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="table-concurrents">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nom du concurrent</th>
+                            <th>Montant (DH)</th>
+                            <th>Variante</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="concurrents-list">
+                        <!-- Les concurrents seront ajoutés ici dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="actions">
+                <button id="generer-pv" class="btn-primary"><i class="fas fa-file-alt"></i> Générer le procès-verbal</button>
+                <button id="reinitialiser" class="btn-secondary"><i class="fas fa-redo"></i> Réinitialiser</button>
+            </div>
+        </div>
+        
+        <div id="resultats-section" class="card hidden">
+            <h2 class="card-title"><i class="fas fa-chart-bar"></i> Résultats de l'ouverture des plis</h2>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="analyse">Analyse</div>
+                <div class="tab" data-tab="details">Détails</div>
+                <div class="tab" data-tab="graphiques">Graphiques</div>
+            </div>
+            
+            <div class="tab-content active" id="analyse-tab">
+                <div class="price-analysis">
+                    <div class="price-box">
+                        <h3>Estimation initiale</h3>
+                        <div class="price-value" id="estimation-value">0,00 DH</div>
+                        <p>Montant estimé par le maître d'ouvrage</p>
+                    </div>
+                    
+                    <div class="price-box">
+                        <h3>Moyenne des offres</h3>
+                        <div class="price-value" id="moyenne-offres">0,00 DH</div>
+                        <p>Moyenne arithmétique des offres valables</p>
+                    </div>
+                    
+                    <div class="price-box">
+                        <h3>Prix de référence</h3>
+                        <div class="price-value" id="prix-reference">0,00 DH</div>
+                        <p>Moyenne entre l'estimation et la moyenne des offres</p>
+                    </div>
+                    
+                    <div class="price-box">
+                        <h3>Économie réalisée</h3>
+                        <div class="price-value" id="economie">0,00 DH</div>
+                        <p>Différence entre l'estimation et la meilleure offre</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>Nombre de concurrents</h3>
+                    <p class="stat-value" id="nombre-concurrents">0</p>
+                    <p class="stat-diff" id="nombre-valables">(dont <span id="nb-offres-valables">0</span> offres valables)</p>
+                </div>
+                
+                <div id="meilleure-offre" class="alert alert-success">
+                    <i class="fas fa-trophy"></i>
+                    <div>
+                        <h3>Offre économiquement la plus avantageuse</h3>
+                        <p id="texte-meilleure-offre">Aucune offre valable n'a été enregistrée</p>
+                    </div>
+                </div>
+                
+                <div id="anormalement-basses" class="alert alert-warning hidden">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <h3>Offres anormalement basses détectées</h3>
+                        <p>Les offres suivantes sont inférieures de plus de <span id="seuil-basse">25%</span> par rapport à l'estimation du maître d'ouvrage :</p>
+                        <ul id="liste-basses">
+                            <!-- Les offres anormalement basses seront listées ici -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <div id="offres-excessives" class="alert alert-danger hidden">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <div>
+                        <h3>Offres excessives détectées</h3>
+                        <p>Les offres suivantes sont supérieures de plus de 20% par rapport à l'estimation du maître d'ouvrage :</p>
+                        <ul id="liste-excessives">
+                            <!-- Les offres excessives seront listées ici -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="details-tab">
+                <h3>Classement des offres – Analyse selon le décret marocain</h3>
+                <p style="color:#555; font-size:14px;">Les offres sont classées par rapport au prix de référence. Les offres inférieures au prix de référence sont classées par ordre décroissant, les offres supérieures par ordre croissant.</p>
+
+                <div class="table-responsive">
+                    <table id="table-resultats">
+                        <thead>
+                            <tr>
+                                <th>Classement</th>
+                                <th>Nom du concurrent</th>
+                                <th>Montant (DH)</th>
+                                <th>Écart avec estimation</th>
+                                <th>Écart avec référence</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultats-list">
+                            <!-- Les résultats seront ajoutés ici dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3 style="margin-top: 30px;">Analyse détaillée</h3>
+                <div id="analyse-detaillee">
+                    <!-- L'analyse détaillée sera ajoutée ici dynamiquement -->
+                </div>
+            </div>
+            
+            <div class="tab-content" id="graphiques-tab">
+                <h3>Répartition des offres</h3>
+                <div class="chart-container">
+                    <canvas id="offres-chart"></canvas>
+                </div>
+                
+                <h3>Comparaison avec l'estimation</h3>
+                <div class="chart-container">
+                    <canvas id="comparaison-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button id="imprimer-pv" class="btn-primary"><i class="fas fa-print"></i> Imprimer le procès-verbal</button>
+                <button id="exporter-pdf" class="btn-secondary"><i class="fas fa-file-pdf" style="color: #dc3545;"></i> Exporter en PDF</button>
+                <button id="nouvelle-ouverture" class="btn-secondary"><i class="fas fa-plus-circle"></i> Nouvelle ouverture</button>
+                <button id="exporter-excel" class="btn-warning"><i class="fas fa-file-excel"></i> Exporter Excel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal pour la modification d'une offre -->
+    <div id="modal-modification" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier l'offre</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modal-nom">Nom du concurrent</label>
+                    <input type="text" id="modal-nom" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="modal-montant">Montant de l'offre (DH)</label>
+                    <input type="number" id="modal-montant" min="0" step="0.01" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="modal-variante">Variante</label>
+                    <select id="modal-variante" class="form-control">
+                        <option value="non">Non</option>
+                        <option value="oui">Oui</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-annuler" class="btn-secondary">Annuler</button>
+                <button id="modal-enregistrer" class="btn-primary">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="floating-btn" id="help-btn">
+        <i class="fas fa-question"></i>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>ROYAUME DU MAROC - ADN </p>
+            <p>Application conforme au Décret n° 2-22-431 du 15 Chaabane 1444 (8 mars 2023) relatif aux marchés publics</p>
+            <p>Application pilotée selon les principes de transparence, égalité et libre accès – Art. 1 et 6 du décret</p>
+            <p>© 2025 Y.NOUALI<sup>®</sup> – Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Variables globales
+let concurrents = [];
+let currentEditIndex = -1;
+let typeMarche = '';
+let procedure = '';
+
+
+        // Sélection du type de marché
+        document.querySelectorAll('.type-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                typeMarche = this.id.replace('type-', '');
+                document.getElementById('type-marche').value = typeMarche;
+                
+                // Mise à jour du seuil selon le type de marché
+                let seuil = 0;
+                if (typeMarche === 'travaux') {
+                    seuil = 5000000; // 5 millions DH pour les travaux
+                } else if (typeMarche === 'fournitures') {
+                    seuil = 2000000; // 2 millions DH pour les fournitures
+                } else if (typeMarche === 'services') {
+                    seuil = 1000000; // 1 million DH pour les services
+                }
+                
+                if (seuil > 0) {
+                    document.getElementById('seuil').value = seuil;
+                }
+            });
+        });
+        
+        // Sélection de la procédure
+        document.querySelectorAll('.procedure-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.procedure-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                procedure = this.id.replace('procedure-', '');
+                document.getElementById('procedure').value = procedure;
+            });
+        });
+        
+        // Ajout d'un concurrent avec vérification des doublons
+        document.getElementById('ajouter-concurrent').addEventListener('click', function() {
+            const nom = document.getElementById('nom-concurrent').value.trim();
+            const montant = parseFloat(document.getElementById('montant-offre').value);
+            const variante = document.getElementById('variante').value;
+            
+            if (!nom || isNaN(montant)) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+            
+            // Vérification des doublons
+            const isDuplicate = concurrents.some((c, i) => 
+                c.nom.toLowerCase() === nom.toLowerCase() && i !== currentEditIndex
+            );
+            if (isDuplicate) {
+                alert('Un concurrent avec ce nom existe déjà');
+                return;
+            }
+            
+            if (currentEditIndex === -1) {
+                // Ajout d'un nouveau concurrent
+                concurrents.push({
+                    nom: nom,
+                    montant: montant,
+                    variante: variante
+                });
+            } else {
+                // Modification d'un concurrent existant
+                concurrents[currentEditIndex] = {
+                    nom: nom,
+                    montant: montant,
+                    variante: variante
+                };
+                currentEditIndex = -1;
+                document.getElementById('ajouter-concurrent').innerHTML = '<i class="fas fa-plus"></i> Ajouter';
+            }
+            
+            // Réinitialisation du formulaire
+            document.getElementById('nom-concurrent').value = '';
+            document.getElementById('montant-offre').value = '';
+            document.getElementById('variante').value = 'non';
+            
+            // Mise à jour de l'affichage
+            afficherConcurrents();
+            document.getElementById('nom-concurrent').focus();
+        });
+        
+        // Affichage des concurrents dans le tableau
+        function afficherConcurrents() {
+            const tbody = document.getElementById('concurrents-list');
+            tbody.innerHTML = '';
+            
+            concurrents.forEach((concurrent, index) => {
+                const tr = document.createElement('tr');
+                
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${concurrent.nom}</td>
+                    <td>${concurrent.montant.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>${concurrent.variante === 'oui' ? 'Oui' : 'Non'}</td>
+                    <td>
+                        <button class="btn-warning modifier-btn" data-index="${index}"><i class="fas fa-edit"></i></button>
+                        <button class="btn-danger supprimer-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+            
+            // Ajout des événements aux boutons
+            document.querySelectorAll('.modifier-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    modifierConcurrent(index);
+                });
+            });
+            
+            document.querySelectorAll('.supprimer-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    supprimerConcurrent(index);
+                });
+            });
+        }
+        
+        // Modification d'un concurrent
+        function modifierConcurrent(index) {
+            const concurrent = concurrents[index];
+            document.getElementById('nom-concurrent').value = concurrent.nom;
+            document.getElementById('montant-offre').value = concurrent.montant;
+            document.getElementById('variante').value = concurrent.variante;
+            
+            currentEditIndex = index;
+            document.getElementById('ajouter-concurrent').innerHTML = '<i class="fas fa-save"></i> Enregistrer';
+            document.getElementById('nom-concurrent').focus();
+        }
+        
+        // Suppression d'un concurrent
+        function supprimerConcurrent(index) {
+            if (confirm('Voulez-vous vraiment supprimer ce concurrent ?')) {
+                concurrents.splice(index, 1);
+                afficherConcurrents();
+            }
+        }
+        
+        // Génération du procès-verbal
+        document.getElementById('generer-pv').addEventListener('click', function() {
+            if (concurrents.length === 0) {
+                alert('Veuillez ajouter au moins un concurrent');
+                return;
+            }
+            
+            if (!typeMarche || !procedure) {
+                alert('Veuillez sélectionner le type de marché et la procédure');
+                return;
+            }
+            
+            analyserOffres();
+            document.getElementById('resultats-section').classList.remove('hidden');
+            window.scrollTo({
+                top: document.getElementById('resultats-section').offsetTop,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Analyse des offres avec les nouvelles règles
+        function analyserOffres() {
+            const estimation = parseFloat(document.getElementById('estimation').value) || 0;
+            
+            // Détermination des seuils selon le type de marché
+            let seuilBasse, seuilExcessif;
+            
+            if (typeMarche === 'travaux') {
+                seuilBasse = estimation * 0.80;  // -20%
+                seuilExcessif = estimation * 1.20; // +20%
+            } else { // fournitures et services
+                seuilBasse = estimation * 0.75;  // -25%
+                seuilExcessif = estimation * 1.20; // +20%
+            }
+            
+            // Offres valables (non variantes et dans les seuils)
+            const offresValables = concurrents.filter(c => 
+                c.variante === 'non' && 
+                c.montant >= seuilBasse && 
+                c.montant <= seuilExcessif
+            );
+            
+            // Offres anormalement basses (pour affichage)
+            const offresBasses = concurrents.filter(c => 
+                c.variante === 'non' && 
+                c.montant < seuilBasse
+            );
+            
+            // Offres excessives (pour affichage)
+            const offresExcessives = concurrents.filter(c => 
+                c.variante === 'non' && 
+                c.montant > seuilExcessif
+            );
+            
+            // Calcul des indicateurs
+            const somme = offresValables.reduce((acc, curr) => acc + curr.montant, 0);
+            const moyenne = offresValables.length > 0 ? somme / offresValables.length : 0;
+            const prixReference = (estimation + moyenne) / 2;
+            
+            // Séparation des offres inférieures et supérieures au prix de référence
+            const offresInferieures = offresValables.filter(o => o.montant < prixReference)
+                .sort((a, b) => b.montant - a.montant); // Ordre décroissant
+            
+            const offresSuperieures = offresValables.filter(o => o.montant >= prixReference)
+                .sort((a, b) => a.montant - b.montant); // Ordre croissant
+            
+            // Fusion des tableaux pour le classement final
+            const offresTriees = [...offresInferieures, ...offresSuperieures];
+            const meilleureOffre = offresTriees.length > 0 ? offresTriees[0] : null;
+            const economie = meilleureOffre ? estimation - meilleureOffre.montant : 0;
+            
+            // Mise à jour des indicateurs
+            document.getElementById('estimation-value').textContent = estimation.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' DH';
+            document.getElementById('moyenne-offres').textContent = moyenne.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' DH';
+            document.getElementById('prix-reference').textContent = prixReference.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' DH';
+            document.getElementById('economie').textContent = economie.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' DH';
+            document.getElementById('nombre-concurrents').textContent = concurrents.length;
+            document.getElementById('nb-offres-valables').textContent = offresValables.length;
+            
+            // Mise à jour du texte des seuils dans les alertes
+            document.getElementById('seuil-basse').textContent = 
+                typeMarche === 'travaux' ? '20%' : '25%';
+            
+            // Meilleure offre
+            if (meilleureOffre) {
+                document.getElementById('texte-meilleure-offre').innerHTML = `
+                    <strong>${meilleureOffre.nom}</strong> avec une offre de <strong>${meilleureOffre.montant.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} DH</strong>
+                    <br>Écart avec l'estimation : <strong>${((meilleureOffre.montant - estimation) / estimation * 100).toFixed(2)}%</strong>
+                    <br>Écart avec le prix de référence : <strong>${((meilleureOffre.montant - prixReference) / prixReference * 100).toFixed(2)}%</strong>
+                `;
+            }
+            
+            // Alertes pour les offres anormales
+            if (offresBasses.length > 0) {
+                document.getElementById('anormalement-basses').classList.remove('hidden');
+                const listeBasses = document.getElementById('liste-basses');
+                listeBasses.innerHTML = '';
+                
+                offresBasses.forEach(offre => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${offre.nom}</strong> : ${offre.montant.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} DH (${((offre.montant - estimation) / estimation * 100).toFixed(2)}%)`;
+                    listeBasses.appendChild(li);
+                });
+            } else {
+                document.getElementById('anormalement-basses').classList.add('hidden');
+            }
+            
+            if (offresExcessives.length > 0) {
+                document.getElementById('offres-excessives').classList.remove('hidden');
+                const listeExcessives = document.getElementById('liste-excessives');
+                listeExcessives.innerHTML = '';
+                
+                offresExcessives.forEach(offre => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${offre.nom}</strong> : ${offre.montant.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} DH (${((offre.montant - estimation) / estimation * 100).toFixed(2)}%)`;
+                    listeExcessives.appendChild(li);
+                });
+            } else {
+                document.getElementById('offres-excessives').classList.add('hidden');
+            }
+            
+            // Affichage du classement
+            const tbody = document.getElementById('resultats-list');
+            tbody.innerHTML = '';
+            
+            offresTriees.forEach((offre, index) => {
+                const tr = document.createElement('tr');
+                const ecartEstimation = ((offre.montant - estimation) / estimation * 100).toFixed(2);
+                const ecartReference = ((offre.montant - prixReference) / prixReference * 100).toFixed(2);
+                
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${offre.nom}</td>
+                    <td>${offre.montant.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>${ecartEstimation}%</td>
+                    <td>${ecartReference}%</td>
+                    <td>
+                        <span class="badge badge-success"><i class="fas fa-check-circle"></i> Valable</span>
+                    </td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+            
+            // Ajout des offres anormales en bas du tableau
+            [...offresBasses, ...offresExcessives].forEach(offre => {
+                const tr = document.createElement('tr');
+                const ecartEstimation = ((offre.montant - estimation) / estimation * 100).toFixed(2);
+                const ecartReference = ((offre.montant - prixReference) / prixReference * 100).toFixed(2);
+                const isBasse = offre.montant < seuilBasse;
+                
+                if (isBasse) {
+                    tr.classList.add('offre-basse');
+                } else {
+                    tr.classList.add('offre-excessive');
+                }
+                
+                tr.innerHTML = `
+                    <td>-</td>
+                    <td>${offre.nom}</td>
+                    <td>${offre.montant.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td>${ecartEstimation}%</td>
+                    <td>${ecartReference}%</td>
+                    <td>
+                        ${isBasse ? 
+                            '<span class="badge badge-warning"><i class="fas fa-exclamation-triangle"></i> Anormalement basse</span>' : 
+                            '<span class="badge badge-danger"><i class="fas fa-exclamation-circle"></i> Excessive</span>'}
+                    </td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+            
+            // Analyse détaillée
+            const analyseDiv = document.getElementById('analyse-detaillee');
+            analyseDiv.innerHTML = `
+                <h4>Conformité avec le décret marocain</h4>
+                <p>Cette analyse est effectuée conformément à l'article 67 du décret n° 2-22-431 du 8 mars 2023 relatif aux marchés publics.</p>
+                
+                <div class="alert ${offresBasses.length > 0 ? 'alert-warning' : 'alert-success'}">
+                    <i class="fas ${offresBasses.length > 0 ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i>
+                    <div>
+                        <strong>Offres anormalement basses</strong>
+                        <p>${offresBasses.length > 0 ? 
+                            `${offresBasses.length} offre(s) considérée(s) comme anormalement basse(s) (inférieure(s) à ${typeMarche === 'travaux' ? '20%' : '25%'} de l'estimation). 
+                            Selon l'article 67, ces offres doivent faire l'objet d'une demande de justification.` : 
+                            'Aucune offre anormalement basse détectée.'}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="alert ${offresExcessives.length > 0 ? 'alert-danger' : 'alert-success'}">
+                    <i class="fas ${offresExcessives.length > 0 ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                    <div>
+                        <strong>Offres excessives</strong>
+                        <p>${offresExcessives.length > 0 ? 
+                            `${offresExcessives.length} offre(s) considérée(s) comme excessive(s) (supérieure(s) à 20% de l'estimation). 
+                            Ces offres peuvent être éliminées selon les dispositions du décret.` : 
+                            'Aucune offre excessive détectée.'}
+                        </p>
+                    </div>
+                </div>
+                
+                <h4>Recommandations</h4>
+                <ul>
+                    <li>${meilleureOffre ? `L'offre de <strong>${meilleureOffre.nom}</strong> apparaît comme économiquement la plus avantageuse.` : 'Aucune offre valable disponible.'}</li>
+                    <li>${offresBasses.length > 0 ? `Demander des justifications pour les ${offresBasses.length} offre(s) anormalement basse(s).` : 'Aucune action nécessaire concernant les offres basses.'}</li>
+                    <li>${offresExcessives.length > 0 ? `Envisager l'élimination des ${offresExcessives.length} offre(s) excessive(s).` : 'Aucune action nécessaire concernant les offres excessives.'}</li>
+                </ul>
+            `;
+            
+            // Génération des graphiques
+            genererGraphiques(offresTriees, offresBasses, offresExcessives, estimation, prixReference);
+        }
+        
+        // Génération des graphiques avec Chart.js
+        function genererGraphiques(offresTriees, offresBasses, offresExcessives, estimation, prixReference) {
+            // Destruction des anciens graphiques s'ils existent
+            const oldChart1 = Chart.getChart('offres-chart');
+            if (oldChart1) oldChart1.destroy();
+            
+            const oldChart2 = Chart.getChart('comparaison-chart');
+            if (oldChart2) oldChart2.destroy();
+            
+            // Données pour le premier graphique (répartition des offres)
+            const labels = offresTriees.map((o, i) => `${i+1}. ${o.nom}`);
+            const montants = offresTriees.map(o => o.montant);
+            
+            new Chart(document.getElementById('offres-chart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Montant des offres (DH)',
+                        data: montants,
+                        backgroundColor: offresTriees.map(o => 'rgba(40, 167, 69, 0.7)'), // Vert pour offres normales
+                        borderColor: offresTriees.map(o => 'rgba(40, 167, 69, 1)'),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Montant (DH)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' DH';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Données pour le deuxième graphique (comparaison avec estimation)
+            const comparisonLabels = ['Estimation', 'Prix de référence', 'Meilleure offre', 'Moyenne des offres'];
+            const comparisonData = [
+                estimation,
+                prixReference,
+                offresTriees.length > 0 ? offresTriees[0].montant : 0,
+                offresTriees.length > 0 ? montants.reduce((a, b) => a + b, 0) / montants.length : 0
+            ];
+            
+            new Chart(document.getElementById('comparaison-chart'), {
+                type: 'bar',
+                data: {
+                    labels: comparisonLabels,
+                    datasets: [{
+                        label: 'Montant (DH)',
+                        data: comparisonData,
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(155, 89, 182, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(241, 196, 15, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(155, 89, 182, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(241, 196, 15, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Montant (DH)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' DH';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Gestion des onglets
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Désactivation de tous les onglets
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Activation de l'onglet sélectionné
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+        
+        // Réinitialisation
+        document.getElementById('reinitialiser').addEventListener('click', function() {
+            if (confirm('Voulez-vous vraiment réinitialiser toutes les données ?')) {
+                concurrents = [];
+                typeMarche = '';
+                procedure = '';
+                currentEditIndex = -1;
+                
+                // Réinitialisation des champs
+                document.getElementById('objet').value = '';
+                document.getElementById('reference').value = '';
+                document.getElementById('date-ouverture').value = '';
+                document.getElementById('estimation').value = '';
+                document.getElementById('seuil').value = '';
+                document.getElementById('nom-concurrent').value = '';
+                document.getElementById('montant-offre').value = '';
+                document.getElementById('variante').value = 'non';
+                document.getElementById('ajouter-concurrent').innerHTML = '<i class="fas fa-plus"></i> Ajouter';
+                
+                // Réinitialisation des sélections
+                document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+                document.querySelectorAll('.procedure-card').forEach(c => c.classList.remove('selected'));
+                
+                // Réinitialisation de l'affichage
+                document.getElementById('concurrents-list').innerHTML = '';
+                document.getElementById('resultats-section').classList.add('hidden');
+            }
+        });
+        
+        // Nouvelle ouverture
+        document.getElementById('nouvelle-ouverture').addEventListener('click', function() {
+            document.getElementById('resultats-section').classList.add('hidden');
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Impression du PV
+        document.getElementById('imprimer-pv').addEventListener('click', function() {
+            window.print();
+        });
+        
+        // Export PDF (simulé)
+        document.getElementById('exporter-pdf').addEventListener('click', function() {
+            alert('Fonctionnalité PDF à implémenter (serait intégrée avec une bibliothèque comme jsPDF)');
+        });
+        
+        // Export Excel
+        document.getElementById('exporter-excel').addEventListener('click', function() {
+            if (concurrents.length === 0) {
+                alert('Aucune donnée à exporter');
+                return;
+            }
+            
+            // Préparation des données
+            const data = [
+                ['N°', 'Nom du concurrent', 'Montant (DH)', 'Variante', 'Statut']
+            ];
+            
+            const estimation = parseFloat(document.getElementById('estimation').value) || 0;
+            let seuilBasse, seuilExcessif;
+            
+            if (typeMarche === 'travaux') {
+                seuilBasse = estimation * 0.80;
+                seuilExcessif = estimation * 1.20;
+            } else {
+                seuilBasse = estimation * 0.75;
+                seuilExcessif = estimation * 1.20;
+            }
+            
+            concurrents.forEach((concurrent, index) => {
+                let statut = 'Valable';
+                if (concurrent.variante === 'oui') {
+                    statut = 'Variante';
+                } else if (concurrent.montant < seuilBasse) {
+                    statut = 'Anormalement basse';
+                } else if (concurrent.montant > seuilExcessif) {
+                    statut = 'Excessive';
+                }
+                
+                data.push([
+                    index + 1,
+                    concurrent.nom,
+                    concurrent.montant,
+                    concurrent.variante === 'oui' ? 'Oui' : 'Non',
+                    statut
+                ]);
+            });
+            
+            // Création du fichier Excel
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, "Ouverture des plis");
+            
+            // Export
+            XLSX.writeFile(wb, `ouverture_plis_${document.getElementById('reference').value || 'sans_ref'}.xlsx`);
+        });
+        
+        // Gestion du modal de modification
+        const modal = document.getElementById('modal-modification');
+        const span = document.getElementsByClassName('close')[0];
+        
+        // Ouverture du modal
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modifier-btn')) {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                const concurrent = concurrents[index];
+                
+                document.getElementById('modal-nom').value = concurrent.nom;
+                document.getElementById('modal-montant').value = concurrent.montant;
+                document.getElementById('modal-variante').value = concurrent.variante;
+                
+                currentEditIndex = index;
+                modal.style.display = 'block';
+            }
+        });
+        
+        // Fermeture du modal
+        span.onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        document.getElementById('modal-annuler').onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        // Enregistrement des modifications
+        document.getElementById('modal-enregistrer').addEventListener('click', function() {
+            const nom = document.getElementById('modal-nom').value.trim();
+            const montant = parseFloat(document.getElementById('modal-montant').value);
+            const variante = document.getElementById('modal-variante').value;
+            
+            if (!nom || isNaN(montant)) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+            
+            // Vérification des doublons
+            const isDuplicate = concurrents.some((c, i) => 
+                c.nom.toLowerCase() === nom.toLowerCase() && i !== currentEditIndex
+            );
+            if (isDuplicate) {
+                alert('Un concurrent avec ce nom existe déjà');
+                return;
+            }
+            
+            concurrents[currentEditIndex] = {
+                nom: nom,
+                montant: montant,
+                variante: variante
+            };
+            
+            afficherConcurrents();
+            modal.style.display = 'none';
+            currentEditIndex = -1;
+        });
+        
+        // Fermeture du modal en cliquant à l'extérieur
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Bouton d'aide
+        document.getElementById('help-btn').addEventListener('click', function() {
+            alert('Cette application permet de gérer l\'ouverture des plis conformément à la réglementation marocaine des marchés publics.\n\n1. Remplissez les informations de base\n2. Sélectionnez le type de marché et la procédure\n3. Ajoutez les concurrents et leurs offres\n4. Générez le procès-verbal d\'ouverture des plis');
+        });
+    });
+</script>
